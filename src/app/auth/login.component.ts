@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
+import Swal from 'sweetalert2';
 import { AuthService } from '../core/services/auth.service';
 import { Router } from '@angular/router';
 import { MaterialModule } from '../common/material.module';
@@ -18,8 +19,8 @@ import { MaterialModule } from '../common/material.module';
 export class LoginComponent {
     form: FormGroup;
 
-    private fb     = inject(FormBuilder);
-    private auth   = inject(AuthService);
+    private fb = inject(FormBuilder);
+    private auth = inject(AuthService);
     private router = inject(Router);
 
     constructor() {
@@ -28,12 +29,19 @@ export class LoginComponent {
             password: ['', Validators.required]
         });
     }
-    
-    submit() {
+
+    login() {
         if (this.form.valid) {
             this.auth.login(this.form.value).subscribe({
                 next: () => this.router.navigate(['/gateways']),
-                error: err => console.error('Login failed', err)
+                error: err => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error de inicio de sesión',
+                        text: err?.error?.message || 'Credenciales inválidas o error en el servidor',
+                        confirmButtonColor: '#1976d2'
+                    });
+                }
             });
         }
     }
