@@ -42,6 +42,11 @@ export class GatewayFormComponent {
         return this.form.get('methods') as FormArray;
     }
 
+    /**
+     * Inicializa el componente cargando los detalles del gateway basado en el ID proporcionado en la ruta o si se está creando uno nuevo.
+     *
+     * @memberof GatewayFormComponent
+     */
     ngOnInit() {
         const id = this.route.snapshot.paramMap.get('id');
         
@@ -67,8 +72,15 @@ export class GatewayFormComponent {
         }
     }
 
+    /**
+     *  Agrega un nuevo método de pago al formulario, con validación para limitar a un máximo de 5 métodos.
+     *
+     * @param {string} [name='']
+     * @param {number} [commissionRate=0]
+     * @memberof GatewayFormComponent
+     */
     addMethod(name: string = '', commissionRate: number = 0) {
-        if (this.methods.length < 5) {
+            if (this.methods.length < 5) {
             this.methods.push(this.fb.group({
                 name: [name, Validators.required],
                 commissionRate: [commissionRate, [Validators.required, Validators.min(0), Validators.max(100)]]
@@ -76,10 +88,23 @@ export class GatewayFormComponent {
         }
     }
 
+    /**
+     * Elimina un método de pago del formulario basado en su índice.
+     *
+     * @param {number} index
+     * @memberof GatewayFormComponent
+     */
     removeMethod(index: number) {
         this.methods.removeAt(index);
     }
 
+    /**
+     * Valida que no existan nombres de métodos de pago duplicados en el formulario.
+     *
+     * @param {AbstractControl} control
+     * @return {*} 
+     * @memberof GatewayFormComponent
+     */
     duplicateNamesValidator(control: AbstractControl) {
         const arr = control as FormArray;
         const names = arr.controls.map(c => c.get('name')?.value);
@@ -87,11 +112,23 @@ export class GatewayFormComponent {
         return hasDuplicates ? { duplicateNames: true } : null;
     }
 
+    /**
+     * Valida que el formulario de métodos de pago no esté vacío, es decir, que al menos haya un método agregado.
+     *
+     * @param {AbstractControl} control
+     * @return {*} 
+     * @memberof GatewayFormComponent
+     */
     requiredArrayValidator(control: AbstractControl) {
         const arr = control as FormArray;
         return arr.length === 0 ? { required: true } : null;
     }
 
+    /**
+     * Maneja el proceso de envío del formulario, validando los datos y mostrando mensajes de éxito o error según corresponda.
+     *
+     * @memberof GatewayFormComponent
+     */
     onSubmit() {
         if (this.form.valid) {
             const gateway: Gateway = {

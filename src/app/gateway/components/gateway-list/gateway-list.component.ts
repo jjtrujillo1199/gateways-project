@@ -36,10 +36,20 @@ export class GatewayListComponent {
         value: ''
     };
 
+    /**
+     * Inicializa el componente cargando la lista de gateways desde el servicio.
+     *
+     * @memberof GatewayListComponent
+     */
     ngOnInit() {
         this.service.loadGateways();
     }
 
+    /**
+     * realiza el proceso de búsqueda.
+     *
+     * @memberof GatewayListComponent
+     */
     onSearch() {
         const params: any = {};
         if (this.filters.value) {
@@ -48,6 +58,11 @@ export class GatewayListComponent {
         this.service.loadGateways(params);
     }
 
+    /**
+     * Limpia el formulario al cambiar el filtro.
+     *
+     * @memberof GatewayListComponent
+     */
     clearFilters() {
         this.filters.value = '';
         this.onSearch();

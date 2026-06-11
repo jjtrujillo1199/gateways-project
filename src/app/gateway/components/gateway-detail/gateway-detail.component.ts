@@ -28,6 +28,11 @@ export class GatewayDetailComponent {
     gateway$!: Observable<any>;
     displayedColumns = ['name', 'commissionRate'];
 
+    /**
+     * Inicializa el componente cargando los detalles del gateway basado en el ID proporcionado en la ruta.
+     *
+     * @memberof GatewayDetailComponent
+     */
     ngOnInit() {
         this.gateway$ = this.route.paramMap.pipe(
             switchMap(params => this.service.getGateway(params.get('id')!)),

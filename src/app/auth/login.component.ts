@@ -30,6 +30,11 @@ export class LoginComponent {
         });
     }
 
+    /**
+     * Maneja el proceso de inicio de sesión, validando el formulario y mostrando mensajes de error en caso de fallo.
+     *
+     * @memberof LoginComponent
+     */
     login() {
         if (this.form.valid) {
             this.auth.login(this.form.value).subscribe({
