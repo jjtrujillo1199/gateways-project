@@ -1,0 +1,27 @@
+.gateway-form-card {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px;
+
+  mat-card-title {
+    margin-bottom: 40px;
+    font-weight: 500;
+  }
+
+  mat-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+
+    .method-row {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    button {
+      margin-top: 20px;
+    }
+  }
+}

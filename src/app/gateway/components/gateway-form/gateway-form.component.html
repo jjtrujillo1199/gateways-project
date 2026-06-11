@@ -1,0 +1,90 @@
+<mat-toolbar color="primary" class="gateway-toolbar">
+    <span class="toolbar-title">MET Group</span>
+    <span class="spacer"></span>
+
+    <button mat-button [routerLink]="['/gateways']">
+        Listar Gateway
+    </button>
+
+    <button mat-button (click)="onLogout()">
+        Cerrar sesión
+    </button>
+</mat-toolbar>
+
+<mat-card class="gateway-form-card mat-elevation-z4">
+    <mat-card-title>Formulario Gateway</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="outline">
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="name" />
+                <mat-error *ngIf="form.get('name')?.invalid">Nombre requerido</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Estado</mat-label>
+                <mat-select formControlName="status">
+                    <mat-option value="ACTIVE">ACTIVE</mat-option>
+                    <mat-option value="INACTIVE">INACTIVE</mat-option>
+                    <mat-option value="MAINTENANCE">MAINTENANCE</mat-option>
+                </mat-select>
+                <mat-error *ngIf="form.get('status')?.invalid">Estado requerido</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Tipo</mat-label>
+                <mat-select formControlName="type">
+                    <mat-option value="CREDIT_CARD">CREDIT_CARD</mat-option>
+                    <mat-option value="BANK_TRANSFER">BANK_TRANSFER</mat-option>
+                    <mat-option value="CRYPTO">CRYPTO</mat-option>
+                </mat-select>
+                <mat-error *ngIf="form.get('type')?.invalid">Tipo requerido</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>País</mat-label>
+                <input matInput formControlName="country" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Comisión (%)</mat-label>
+                <input matInput type="number" formControlName="commissionRate" />
+            </mat-form-field>
+
+            <h3>Métodos de pago</h3>
+            <div formArrayName="methods">
+                <div *ngFor="let m of methods.controls; let i=index" [formGroupName]="i" class="method-row">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput formControlName="name" />
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Tasa de comisión</mat-label>
+                        <input matInput type="number" formControlName="commissionRate" />
+                    </mat-form-field>
+
+                    <button mat-icon-button color="warn" type="button" (click)="removeMethod(i)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+
+            <mat-error *ngIf="methods.errors?.['duplicateNames']">
+                Los nombres de métodos no pueden repetirse
+            </mat-error>
+            <mat-error *ngIf="methods.errors?.['required']">
+                Debe existir al menos un método de pago
+            </mat-error>
+
+            <button mat-raised-button color="primary" type="button" (click)="addMethod()"
+                [disabled]="methods.length >= 5">
+                Agregar método
+            </button>
+
+            <button mat-raised-button color="accent" type="submit" [disabled]="form.invalid">
+                Guardar
+            </button>
+        </form>
+    </mat-card-content>
+</mat-card>

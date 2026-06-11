@@ -7,5 +7,11 @@ export const routes: Routes = [
         path: 'login',
         component: LoginComponent
     },
+    {
+        path: 'gateways',
+        canActivate: [authGuard],
+        loadChildren: () => import('./gateway/gateway.routes')
+            .then(m => m.GATEWAY_ROUTES)
+    },
     { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
