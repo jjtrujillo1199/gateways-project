@@ -44,7 +44,6 @@ export class GatewayFormComponent {
 
     ngOnInit() {
         const id = this.route.snapshot.paramMap.get('id');
-        console.log('ID del gateway:', id);
         
         if (id && id !== 'create') {
             this.service.getGateway(id).subscribe(res => {
