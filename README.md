@@ -1,61 +1,91 @@
-# GatewaysApp
+# 🚀 Proyecto Gateways - Angular SPA
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.0.
+## 📋 Descripción
+Este proyecto es un **Frontend SPA en Angular (standalone)** que implementa un módulo de rutas con **lazy loading** para la gestión de *Gateways*.  
+Incluye vistas de listado, detalle y formulario de creación/edición, con formularios reactivos, validaciones avanzadas y manejo de estado con **Signals**.
 
-npm install sweetalert2
+---
 
-## Development server
+## 🛠️ Requisitos previos
+- Node.js >= 18
+- Angular CLI >= 17
 
-To start a local development server, run:
+---
+
+## Instalación y arranque
 
 ```bash
+# 1. Clonar el repositorio
+git clone <URL_REPO>
+cd gateways-app
+
+# 2. Instalar dependencias
+npm install
+
+# 2. Instalar librerias adicionales
+npm install sweetalert2
+
+# 3. Levantar en modo desarrollo (hot-reload)
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Arquitectura
 
-## Code scaffolding
+El proyecto sigue la arquitectura standalone con lazy loading:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- Standalone components: todos los componentes usan standalone: true con sus propios imports.
+- Lazy loading: las rutas del módulo gateway se cargan vía:
 
 ```bash
-ng generate --help
+loadChildren(() => import('../gateway/gateway.routes'))
 ```
 
-## Building
+- Estado con Signals:
+items, isLoading, filters como signal().
+Derivados con computed().
+HTTP con toSignal() o subscribe manual.
 
-To build the project run:
+- Formularios reactivos:
+FormGroup, FormControl, FormArray.
+Validaciones inline y validator personalizado para nombres duplicados en métodos de pago.
 
-```bash
-ng build
-```
+- JwtInterceptor: implementado como HttpInterceptorFn, adjunta el token JWT en cada petición protegida.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
-## Running unit tests
+## Vistas implementadas
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+### Login
+- Formulario reactivo con validaciones.
+- Manejo de errores con SweetAlert2
+- Al iniciar sesión, se guarda el token JWT.
 
-```bash
-ng test
-```
+### Listado de Gateways
+- Tabla con gateways desde la API.
+- Filtros por nombre, estado y tipo.
+- Mensaje de estado vacío cuando no hay resultados.
+- Columna de acciones con icono para navegar al detalle.
 
-## Running end-to-end tests
+### Detalle de Gateway
+- Visualización de todos los campos del gateway.
+- Listado de métodos de pago con nombre y tasa de comisión.
+- Botón para navegar al formulario de edición.
 
-For end-to-end (e2e) testing, run:
+### Formulario Crear/Editar
+- Formulario reactivo con validaciones por campo.
+- Mensajes de error inline bajo cada campo inválido.
+- Submit que llama al endpoint con JWT en el header.
+- Redirección al detalle o listado tras guardar.
+- Sección de métodos de pago con FormArray:
+    - Mínimo 1 y máximo 5 métodos.
+    - Botón Agregar método deshabilitado al llegar a 5.
+    - Validator personalizado para nombres duplicados.
+    - Al editar, el FormArray se popula con métodos existentes
 
-```bash
-ng e2e
-```
+### Rutas principales
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+El proyecto define las siguientes rutas:
+- /login => Vista de login
+- /gateways => Listado de gateways (GatewayListComponent)
+- /gateways/create => Formulario de creación (GatewayFormComponent)
+- /gateways/:id => Detalle de gateway (GatewayDetailComponent)
+- /gateways/:id/edit >= Formulario de edición (GatewayFormComponent)
