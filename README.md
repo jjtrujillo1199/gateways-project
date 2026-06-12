@@ -19,7 +19,7 @@ Incluye vistas de listado, detalle y formulario de creación/edición, con formu
 
 ```bash
 # 1. Clonar el repositorio
-git clone <URL_REPO>
+git clone <https://github.com/jjtrujillo1199/gateways-project.git>
 cd gateways-app
 
 # 2. Instalar dependencias
