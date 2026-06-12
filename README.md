@@ -12,7 +12,7 @@ Stack: **NestJS · TypeORM · SQLite (sql.js) · TypeScript · JWT**
 | Node.js     | 18.x o superior | https://nodejs.org |
 | npm         | 9.x o superior  | incluido con Node  |
 
-> No se requiere ningún servidor de base de datos. La persistencia usa **sql.js** (SQLite en JavaScript puro), el archivo `gateway.db` ya está incluido en el repositorio con 25 registros seed.
+> No se requiere de ningún servidor de base de datos, persisten los datos con el archivo gateway.db.
 
 ---
 
@@ -20,7 +20,7 @@ Stack: **NestJS · TypeORM · SQLite (sql.js) · TypeScript · JWT**
 
 ```bash
 # 1. Clonar el repositorio
-git clone <URL_REPO>
+git clone <https://github.com/jjtrujillo1199/gateways-project.git>
 cd gateways-api
 
 # 2. Instalar dependencias
