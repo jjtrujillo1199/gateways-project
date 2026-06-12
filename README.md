@@ -7,10 +7,10 @@ Stack: **NestJS · TypeORM · SQLite (sql.js) · TypeScript · JWT**
 
 ## Requisitos previos
 
-| Herramienta | Versión mínima | Instalación |
-|-------------|---------------|-------------|
-| Node.js | 18.x o superior | https://nodejs.org |
-| npm | 9.x o superior | incluido con Node |
+| Herramienta | Versión mínima  |    Instalación     |
+|-------------|-----------------|--------------------|
+| Node.js     | 18.x o superior | https://nodejs.org |
+| npm         | 9.x o superior  | incluido con Node  |
 
 > No se requiere ningún servidor de base de datos. La persistencia usa **sql.js** (SQLite en JavaScript puro), el archivo `gateway.db` ya está incluido en el repositorio con 25 registros seed.
 
