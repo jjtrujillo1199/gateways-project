@@ -1,6 +1,6 @@
 # Proyecto Gateways - Angular + NestJS
 
-Pasos para levantar el proyecto rápidamente, el detalle de cada proyecto se encuentra en su respetivo README que se encuentra en cada directorio.
+Pasos para levantar el proyecto rápidamente, el detalle de cada proyecto se encuentra en su respectivo README que se encuentra en cada directorio.
 
 ---
 
