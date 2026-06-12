@@ -6,9 +6,12 @@ Incluye vistas de listado, detalle y formulario de creación/edición, con formu
 
 ---
 
-## 🛠️ Requisitos previos
-- Node.js >= 18
-- Angular CLI >= 17
+## Requisitos previos
+
+| Herramienta | Versión mínima  |    Instalación     |
+|-------------|-----------------|--------------------|
+| Node.js     | 18.x o superior | https://nodejs.org |
+| Angular CLI | 17 o superior   | incluido con Node  |
 
 ---
 
